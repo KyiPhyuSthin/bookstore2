@@ -1,11 +1,11 @@
 @extends('management.layouts.master')
-@section('categories', 'active-sidebar-link')
-@section('page_name', 'Categories')
+@section('sub-categories', 'active-sidebar-link')
+@section('page_name', 'Sub Categories')
 
 @section('body-content')
     <div class="container mx-auto px-4 py-8">
         <div class="flex items-center justify-between mb-6">
-            <h1 class="text-2xl font-bold">Categories Management</h1>
+            <h1 class="text-2xl font-bold">Sub Category Management</h1>
             <button class="bg-black text-white text-primary-foreground inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-primary/90 h-9 rounded-md px-3"
             data-te-toggle="modal" data-te-target="#addModal">
                 Add
@@ -18,11 +18,15 @@
                         <tr class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
                             <th
                                 class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
-                                #
+                                ID
                             </th>
                             <th
                                 class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
                                 Name
+                            </th>
+                            <th
+                                class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
+                                Category
                             </th>
                             <th
                                 class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
@@ -31,18 +35,19 @@
                         </tr>
                     </thead>
                     <tbody class="[&amp;_tr:last-child]:border-0">
-                        @foreach ($categories as $i => $category)
+                        @foreach ($subCategories as $i=>$subCategory)
                         <tr class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
-                            <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0"> {{ ++$i }} </td>
-                            <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0"> {{$category->name}} </td>
+                            <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0"> {{++$i}} </td>
+                            <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0"> {{$subCategory->name}} </td>
+                            <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0"> {{$subCategory->category->name}} </td>
                             <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
                                 <div class="flex items-center gap-2">
                                     <button class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3"
-                                    id="edit-btn" data-id="{{ $category->id }}" data-name="{{ $category->name }}" data-te-toggle="modal" data-te-target="#editModal">
+                                    id="edit-btn" data-id="{{ $subCategory->id }}" data-name="{{ $subCategory->name }}" data-te-toggle="modal" data-te-target="#editModal">
                                         Edit
                                     </button>
                                     <button class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3"
-                                    id="delete-btn" data-delete-id="{{ $category->id }}" data-te-toggle="modal" data-te-target="#deleteModal" color="red">
+                                    id="delete-btn" data-delete-id="{{ $subCategory->id }}" data-te-toggle="modal" data-te-target="#deleteModal" color="red" color="red">
                                         Delete
                                     </button>
                                 </div>
@@ -66,7 +71,7 @@
                 <div
                     class="flex flex-shrink-0 items-center justify-between rounded-t-md border-b-2 border-neutral-100 p-4 dark:border-white/10">
                     <h5 class="text-xl font-medium leading-normal text-surface dark:text-white" id="exampleModalLabel">
-                        Add Category
+                        Add Sub Category
                     </h5>
                     <button type="button"
                         class="box-content rounded-none border-none text-neutral-500 hover:text-neutral-800 hover:no-underline focus:text-neutral-800 focus:opacity-100 focus:shadow-none focus:outline-none dark:text-neutral-400 dark:hover:text-neutral-300 dark:focus:text-neutral-300"
@@ -82,11 +87,21 @@
 
                 <!-- Modal body -->
                 <div class="relative flex-auto p-4" data-te-modal-body-ref>
-                    <form id="add-form" action="/management/categories" method="POST">
+                    <form id="add-form" action="/management/sub_categories" method="POST">
                         @csrf
                         <div>
                             <label for="add-name"> Name </label>
                             <input type="text" id="add-name" name="name" class="border-4 rounded ">
+                        </div>
+
+                        <div class="bg-white mb-0 w-[30%] mt-4 text-sm inline-block" data-te-select-wrapper-ref>
+                            {{-- <label for="select-category"> Category </label> --}}
+                            <select data-te-select-init data-te-select-placeholder="Select Category" data-te-select-filter="true"
+                            name="category_id">
+                                @foreach ($categories as $category)
+                                    <option value="{{$category->id}}"> {{$category->name}} </option>
+                                @endforeach
+                            </select>
                         </div>
                     </form>
                 </div>
@@ -120,7 +135,7 @@
                 <div
                     class="flex flex-shrink-0 items-center justify-between rounded-t-md border-b-2 border-neutral-100 p-4 dark:border-white/10">
                     <h5 class="text-xl font-medium leading-normal text-surface dark:text-white" id="exampleModalLabel">
-                        Edit Category
+                        Edit Sub Category
                     </h5>
                     <button type="button"
                         class="box-content rounded-none border-none text-neutral-500 hover:text-neutral-800 hover:no-underline focus:text-neutral-800 focus:opacity-100 focus:shadow-none focus:outline-none dark:text-neutral-400 dark:hover:text-neutral-300 dark:focus:text-neutral-300"
@@ -143,6 +158,15 @@
                         <div>
                             <label for="edit-name"> Name </label>
                             <input type="text" id="edit-name" name="name" class="border-4 rounded ">
+                        </div>
+
+                        <div class="bg-white mb-0 w-[30%] mt-4 text-sm inline-block" data-te-select-wrapper-ref>
+                            <select data-te-select-init data-te-select-placeholder="Select Category" data-te-select-filter="true"
+                            name="category_id">
+                                @foreach ($categories as $category)
+                                    <option value="{{$category->id}}"> {{$category->name}} </option>
+                                @endforeach
+                            </select>
                         </div>
                     </form>
                 </div>
@@ -176,7 +200,7 @@
                 <div
                     class="flex flex-shrink-0 items-center justify-between rounded-t-md border-b-2 border-neutral-100 p-4 dark:border-white/10">
                     <h5 class="text-xl font-medium leading-normal text-surface dark:text-white" id="exampleModalLabel">
-                        Delete Category
+                        Delete Sub Category
                     </h5>
                     <button type="button"
                         class="box-content rounded-none border-none text-neutral-500 hover:text-neutral-800 hover:no-underline focus:text-neutral-800 focus:opacity-100 focus:shadow-none focus:outline-none dark:text-neutral-400 dark:hover:text-neutral-300 dark:focus:text-neutral-300"
@@ -218,7 +242,7 @@
     </div>
 @endsection
 
-@section('script_index')
+@section("script_index")
     <script>
         var editId = null;
         var editName = null;
@@ -233,7 +257,7 @@
             });
 
             $(document).on("click", "#confirm-edit-btn", function() {
-                $("#edit-form").attr("action", `/management/categories/${editId}`);
+                $("#edit-form").attr("action", `/management/sub_categories/${editId}`);
                 $("#edit-form").submit();
             });
 
@@ -247,7 +271,7 @@
             });
 
             $(document).on("click", "#confirm-delete-btn", function() {
-                $("#delete-form").attr("action", `/management/categories/${deleteId}`);
+                $("#delete-form").attr("action", `/management/sub_categories/${deleteId}`);
                 $("#delete-form").submit();
             });
         });

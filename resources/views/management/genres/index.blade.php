@@ -1,11 +1,11 @@
 @extends('management.layouts.master')
-@section('categories', 'active-sidebar-link')
-@section('page_name', 'Categories')
+@section('genres', 'active-sidebar-link')
+@section('page_name', 'Genres')
 
 @section('body-content')
     <div class="container mx-auto px-4 py-8">
         <div class="flex items-center justify-between mb-6">
-            <h1 class="text-2xl font-bold">Categories Management</h1>
+            <h1 class="text-2xl font-bold">Genres Management</h1>
             <button class="bg-black text-white text-primary-foreground inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-primary/90 h-9 rounded-md px-3"
             data-te-toggle="modal" data-te-target="#addModal">
                 Add
@@ -31,7 +31,7 @@
                         </tr>
                     </thead>
                     <tbody class="[&amp;_tr:last-child]:border-0">
-                        @foreach ($categories as $i => $category)
+                        @foreach ($genres as $i => $category)
                         <tr class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
                             <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0"> {{ ++$i }} </td>
                             <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0"> {{$category->name}} </td>
@@ -66,7 +66,7 @@
                 <div
                     class="flex flex-shrink-0 items-center justify-between rounded-t-md border-b-2 border-neutral-100 p-4 dark:border-white/10">
                     <h5 class="text-xl font-medium leading-normal text-surface dark:text-white" id="exampleModalLabel">
-                        Add Category
+                        Add Genre
                     </h5>
                     <button type="button"
                         class="box-content rounded-none border-none text-neutral-500 hover:text-neutral-800 hover:no-underline focus:text-neutral-800 focus:opacity-100 focus:shadow-none focus:outline-none dark:text-neutral-400 dark:hover:text-neutral-300 dark:focus:text-neutral-300"
@@ -82,7 +82,7 @@
 
                 <!-- Modal body -->
                 <div class="relative flex-auto p-4" data-te-modal-body-ref>
-                    <form id="add-form" action="/management/categories" method="POST">
+                    <form id="add-form" action="/management/genres" method="POST">
                         @csrf
                         <div>
                             <label for="add-name"> Name </label>
@@ -120,7 +120,7 @@
                 <div
                     class="flex flex-shrink-0 items-center justify-between rounded-t-md border-b-2 border-neutral-100 p-4 dark:border-white/10">
                     <h5 class="text-xl font-medium leading-normal text-surface dark:text-white" id="exampleModalLabel">
-                        Edit Category
+                        Edit Genre
                     </h5>
                     <button type="button"
                         class="box-content rounded-none border-none text-neutral-500 hover:text-neutral-800 hover:no-underline focus:text-neutral-800 focus:opacity-100 focus:shadow-none focus:outline-none dark:text-neutral-400 dark:hover:text-neutral-300 dark:focus:text-neutral-300"
@@ -233,7 +233,7 @@
             });
 
             $(document).on("click", "#confirm-edit-btn", function() {
-                $("#edit-form").attr("action", `/management/categories/${editId}`);
+                $("#edit-form").attr("action", `/management/genres/${editId}`);
                 $("#edit-form").submit();
             });
 
@@ -247,7 +247,7 @@
             });
 
             $(document).on("click", "#confirm-delete-btn", function() {
-                $("#delete-form").attr("action", `/management/categories/${deleteId}`);
+                $("#delete-form").attr("action", `/management/genres/${deleteId}`);
                 $("#delete-form").submit();
             });
         });

@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .active-sidebar-link{
-    @apply bg-gray-900 text-white
+    @apply bg-gray-400 text-white
 }
 
 .normal-sidebar-link{

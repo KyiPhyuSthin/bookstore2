@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\GenresController;
+use App\Http\Controllers\SubCategoryController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,12 +23,31 @@ Route::get('/', function () {
 
 Route::prefix('management')->name('management.')->group(function () {
     Route::prefix('categories')->name('categories.')->group(function () {
-        Route::view('/', 'management.categories.index')->name('index');
-        // Route::post('/', [CategoryController::class, 'store'])->name('store');
-        // Route::put('/{category}', [CategoryController::class, 'update'])->name('update');
-        // Route::delete('/{category}', [CategoryController::class, 'destroy'])->name('destroy');
+        Route::get('/', [CategoryController::class, 'index'])->name('index');
+        Route::post('/', [CategoryController::class, 'store'])->name('store');
+        Route::put('/{category}', [CategoryController::class, 'update'])->name('update');
+        Route::delete('/{category}', [CategoryController::class, 'destroy'])->name('destroy');
     });
 });
+
+Route::prefix('management')->name('management.')->group(function () {
+    Route::prefix('sub_categories')->name('sub_categories.')->group(function () {
+        Route::get('/', [SubCategoryController::class, 'index'])->name('index');
+        Route::post('/', [SubCategoryController::class, 'store'])->name('store');
+        Route::put('/{subCategory}', [SubCategoryController::class, 'update'])->name('update');
+        Route::delete('/{subCategory}', [SubCategoryController::class, 'destroy'])->name('destroy');
+    });
+});
+
+Route::prefix('management')->name('management.')->group(function () {
+    Route::prefix('genres')->name('genres.')->group(function () {
+        Route::get('/', [GenresController::class, 'index'])->name('index');
+        Route::post('/', [GenresController::class, 'store'])->name('store');
+        Route::put('/{genre}', [GenresController::class, 'update'])->name('update');
+        Route::delete('/{genre}', [GenresController::class, 'destroy'])->name('destroy');
+    });
+});
+
 Route::get('/management', function () {
     return view('management.test');
 });
