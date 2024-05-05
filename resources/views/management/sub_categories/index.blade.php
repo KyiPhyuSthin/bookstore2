@@ -3,7 +3,7 @@
 @section('page_name', 'Sub Categories')
 
 @section('body-content')
-    <div class="container mx-auto px-4 py-8">
+    <div class="container mx-auto px-4">
         <div class="flex items-center justify-between mb-6">
             <h1 class="text-2xl font-bold">Sub Category Management</h1>
             <button class="bg-black text-white text-primary-foreground inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-primary/90 h-9 rounded-md px-3"
@@ -18,7 +18,7 @@
                         <tr class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
                             <th
                                 class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
-                                ID
+                                #
                             </th>
                             <th
                                 class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">

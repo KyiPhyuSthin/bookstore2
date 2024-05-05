@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\BookController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\GenresController;
 use App\Http\Controllers\SubCategoryController;
@@ -45,6 +46,17 @@ Route::prefix('management')->name('management.')->group(function () {
         Route::post('/', [GenresController::class, 'store'])->name('store');
         Route::put('/{genre}', [GenresController::class, 'update'])->name('update');
         Route::delete('/{genre}', [GenresController::class, 'destroy'])->name('destroy');
+    });
+});
+
+Route::prefix('management')->name('management.')->group(function () {
+    Route::prefix('books')->name('books.')->group(function () {
+        Route::get('/', [BookController::class, 'index'])->name('index');
+        Route::get('/create', [BookController::class, 'create'])->name('create');
+        Route::post('/', [BookController::class, 'store'])->name('store');
+        Route::get('/{book}/edit', [BookController::class, 'edit'])->name('edit');
+        Route::put('/{book}', [BookController::class, 'update'])->name('update');
+        Route::delete('/{book}', [BookController::class, 'destroy'])->name('destroy');
     });
 });
 

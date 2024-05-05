@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('book_genre', function (Blueprint $table) {
-            $table->foreignId('book_id');
-            $table->foreignId('genre_id');
-            $table->timestamps();
+        Schema::table('books', function (Blueprint $table) {
+            //
+            $table->boolean('is_featured')->default(0)->after('sub_category_id');
         });
     }
 
@@ -23,6 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('book_genres');
+        Schema::table('books', function (Blueprint $table) {
+            //
+        });
     }
 };
