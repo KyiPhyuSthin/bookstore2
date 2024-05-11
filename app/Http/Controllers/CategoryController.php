@@ -18,11 +18,19 @@ class CategoryController extends Controller
         // dd($request->all());
         $validatedData = $request->validate([
             'name' => 'required|string|max:255|unique:categories',
+            'description' => 'sometimes|string|max:255',
+            'is_featured' => 'sometimes',
         ]);
 
         // Category::create($validatedData);
         $category = new Category();
         $category->name = $validatedData['name']; // Use array syntax to access the 'name' key
+        if($validatedData['description']){
+            $category->description = $validatedData['description'];
+        }
+        if($validatedData['is_featured']){
+            $category->is_featured = $validatedData['is_featured'];
+        }
         $category->save();
         return redirect()->route('management.categories.index')
                          ->with('success', 'Category created successfully.');
@@ -38,6 +46,8 @@ class CategoryController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required|string|max:255|unique:categories,name,' . $category->id,
+            'description' => 'sometimes|string|max:255',
+            'is_featured' => 'sometimes',
         ]);
 
         $category->update($validatedData);

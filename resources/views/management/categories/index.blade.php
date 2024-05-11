@@ -26,6 +26,14 @@
                             </th>
                             <th
                                 class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
+                                Description
+                            </th>
+                            <th
+                                class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
+                                Is featured?
+                            </th>
+                            <th
+                                class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
                                 Actions
                             </th>
                         </tr>
@@ -35,10 +43,18 @@
                         <tr class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
                             <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0"> {{ ++$i }} </td>
                             <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0"> {{$category->name}} </td>
+                            <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0"> {{$category->description}} </td>
+                            <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
+                                @if ($category->is_featured == 1)
+                                    Yes
+                                @else
+                                    No
+                                @endif
+                            </td>
                             <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
                                 <div class="flex items-center gap-2">
                                     <button class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3"
-                                    id="edit-btn" data-id="{{ $category->id }}" data-name="{{ $category->name }}" data-te-toggle="modal" data-te-target="#editModal">
+                                    id="edit-btn" data-id="{{ $category->id }}" data-name="{{ $category->name }}" data-description="{{ $category->description }}" data-te-toggle="modal" data-te-target="#editModal">
                                         Edit
                                     </button>
                                     <button class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3"
@@ -84,9 +100,20 @@
                 <div class="relative flex-auto p-4" data-te-modal-body-ref>
                     <form id="add-form" action="/management/categories" method="POST">
                         @csrf
-                        <div>
+                        <div class="my-1">
                             <label for="add-name"> Name </label>
                             <input type="text" id="add-name" name="name" class="border-4 rounded ">
+                        </div>
+                        <div class="my-1">
+                            <label for="add-description"> Description </label>
+                            <input type="text" id="add-description" name="description" class="border-4 rounded ">
+                        </div>
+                        <div class="bg-white mb-0 w-[30%] my-1 text-sm inline-block" data-te-select-wrapper-ref>
+                            <select data-te-select-init data-te-select-placeholder="Is Featured" data-te-select-filter="true"
+                            name="is_featured">
+                                <option value="1"> Yes </option>
+                                <option value="0"> No </option>
+                            </select>
                         </div>
                     </form>
                 </div>
@@ -143,6 +170,17 @@
                         <div>
                             <label for="edit-name"> Name </label>
                             <input type="text" id="edit-name" name="name" class="border-4 rounded ">
+                        </div>
+                        <div>
+                            <label for="edit-description"> Description </label>
+                            <input type="text" id="edit-description" name="description" class="border-4 rounded ">
+                        </div>
+                        <div class="bg-white mb-0 w-[30%] mt-4 text-sm inline-block" data-te-select-wrapper-ref>
+                            <select data-te-select-init data-te-select-placeholder="Is Featured" data-te-select-filter="true"
+                            name="is_featured">
+                                <option value="1"> Yes </option>
+                                <option value="0"> No </option>
+                            </select>
                         </div>
                     </form>
                 </div>
@@ -222,14 +260,17 @@
     <script>
         var editId = null;
         var editName = null;
+        var editDescription = null;
         var deleteId = null;
 
         $(document).ready(function() {
             $(document).on("click", "#edit-btn", function() {
                 editId = $(this).data("id");
                 editName = $(this).data("name");
+                editDescription = $(this).data("description");
                 $("#edit-name").val(editName);
                 $("#edit-id").val(editId);
+                $("#edit-description").val(editDescription);
             });
 
             $(document).on("click", "#confirm-edit-btn", function() {
