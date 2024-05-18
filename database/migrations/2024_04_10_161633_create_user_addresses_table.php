@@ -11,12 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user_infos', function (Blueprint $table) {
+        Schema::create('user_addresses', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('name');
             $table->string('phone');
             $table->text('address');
+            $table->string('zip_code')->nullable();
+            $table->string('state')->nullable();
+            $table->string('city')->nullable();
+            $table->boolean('is_remote')->default(1);
             $table->timestamps();
         });
     }

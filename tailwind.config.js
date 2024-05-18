@@ -6,13 +6,13 @@ export default {
         "./resources/**/*.js",
         "./resources/**/*.vue",
         "./resources/**/**/*.vue",
-        "./node_modules/tw-elements/dist/js/**/*.js",
+        "./node_modules/tw-elements/js/**/*.js",
   ],
   theme: {
     extend: {},
   },
   plugins: [
-    require("tw-elements/dist/plugin.cjs"),
+    require("tw-elements/plugin.cjs"),
   ],
 }
 

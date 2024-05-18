@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('order_id')->constrained('orders')->onDelete('cascade');
             $table->foreignId('book_id')->constrained()->onDelete('cascade');
-            $table->decimal('order_price');
+            $table->decimal('price');
             $table->integer('quantity');
-            $table->decimal('order_cost');
+            $table->decimal('total_price');
             $table->timestamps();
         });
     }

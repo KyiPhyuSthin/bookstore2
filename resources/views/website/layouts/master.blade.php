@@ -15,11 +15,19 @@
     <link rel="stylesheet" href="{{ asset('fontawesome/css/all.css') }}">
     <link rel="stylesheet" href="{{ asset('css/normalize.css') }}">
 
+    <script src="{{ asset('js/axios.min.js') }}"></script>
+    <script src="{{ asset('js/ajax-helpers.js') }}"></script>
     <script src="{{ asset('js/jquery.js') }}"></script>
+    <script src="{{ asset('js/vue.global.js') }}"></script>
+    <script src="{{ asset('js/localstorage-helper.js') }}"></script>
 </head>
 
 <body>
-    @yield("body-content")
+    @include('website.layouts.header')
+    <main class="bg-gray-100 py-6 px-4 md:px-12">
+        @yield("body-content")
+    </main>
+    @include("website.layouts.footer")
 </body>
 
 @yield('script_index')

@@ -7,6 +7,10 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\GenresController;
 use App\Http\Controllers\SubCategoryController;
 
+use App\Http\Controllers\WEBSITE\AuthController;
+use App\Http\Controllers\WEBSITE\OrderCheckoutController;
+use App\Http\Controllers\WEBSITE\PagesController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,8 +22,25 @@ use App\Http\Controllers\SubCategoryController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', [PagesController::class, "index"])->name("website.home");
+Route::get('/categories/{category}', [PagesController::class, "categoryDetail"])->name("website.category_detail");
+Route::get('/books/{book}', [PagesController::class, "bookDetail"])->name("website.book_detail");
+Route::get('/cart', [PagesController::class, "cart"])->name("website.cart");
+
+Route::middleware('auth')->group(function(){
+    Route::get('/checkout', [OrderCheckoutController::class, "checkout"])->name("website.checkout");
+    Route::post('/order', [OrderCheckoutController::class, "order"])->name("website.order");
+    Route::view('/thank_you', 'website.thank_you')->name("website.thank_you");
+    Route::post('/sign_out', [AuthController::class, "signOut"])->name("website.sign_out");
+});
+
+Route::view('/sign-in', 'website.auth.sign_in_register')->name("website.user_sign_in");
+
+Route::post('/sign_in', [AuthController::class, "signIn"])->name("website.sign_in");
+Route::post('/register', [AuthController::class, "register"])->name("website.register");
+
+Route::get('/test', function () {
+    return view('website.test');
 });
 
 Route::prefix('management')->name('management.')->group(function () {

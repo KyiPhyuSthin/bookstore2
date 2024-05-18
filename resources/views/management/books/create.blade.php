@@ -13,41 +13,37 @@
                     <label for="category" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
                         Book Category
                     </label>
-                    <div class="bg-white mb-0 w-full h-12 text-sm inline-block" data-te-select-wrapper-ref>
-                        <select data-te-select-init data-te-select-placeholder="Select Category" aria-hidden="true" tabindex="-1" id="category">
+                    <select aria-hidden="true" tabindex="-1" id="category"
+                    class="flex h-10 w-96 items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
+                        <option selected disabled >Select Category</option>
                             @foreach ($categories as $category)
                                 <option value="{{$category}}"> {{$category->name}} </option>
                             @endforeach
-                        </select>
-                    </div>
+                    </select>
                 </div>
 
                 <div>
                     <label for="sub_category" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
                         Book Sub Category
                     </label>
-                    <div class="bg-white mb-0 w-full h-12 text-sm inline-block" data-te-select-wrapper-ref>
-                        <select data-te-select-init data-te-select-placeholder="Select Sub Category" aria-hidden="true" tabindex="-1" id="sub_category"
-                        name="sub_category_id">
-                            {{-- @foreach ($subCategories as $subCategory)
-                                <option value="{{$subCategory->id}}"> {{$subCategory->name}} </option>
-                            @endforeach --}}
-                        </select>
-                    </div>
+                    <select aria-hidden="true" tabindex="-1" id="sub_category"
+                    class="flex h-10 w-96 items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                    name="sub_category_id">
+
+                    </select>
                 </div>
 
                 <div>
                     <label for="genres" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
                         Book Genres
                     </label>
-                    <div class="bg-white mb-0 w-full h-12 text-sm inline-block" data-te-select-wrapper-ref>
-                        <select data-te-select-init data-te-select-placeholder="Select Genres" multiple aria-hidden="true" tabindex="-1" id="genres"
-                        name="genre_ids[]">
-                            @foreach ($genres as $genre)
-                                <option value="{{$genre->id}}"> {{$genre->name}} </option>
-                            @endforeach
-                        </select>
-                    </div>
+                    <select multiple aria-hidden="true" tabindex="-1" id="genres"
+                    class="flex h-48 w-96 items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                    name="genre_ids[]">
+                        @foreach ($genres as $genre)
+                            <option value="{{$genre->id}}"> {{$genre->name}} </option>
+                        @endforeach
+                    </select>
                 </div>
 
                 <div>
@@ -56,6 +52,7 @@
                     </label>
                     <div class="bg-white mb-0 w-full h-12 text-sm inline-block" data-te-select-wrapper-ref>
                         <select data-te-select-init data-te-select-placeholder="Is featured or not" aria-hidden="true" tabindex="-1"
+                        class="flex h-10 w-96 items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                         name="is_featured">
                             <option value="1"> Yes </option>
                             <option value="0" selected> No </option>
