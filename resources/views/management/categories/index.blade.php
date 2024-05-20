@@ -102,7 +102,7 @@
                         @csrf
                         <div class="my-2">
                             <label for="add-name" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300"> Name </label>
-                            <input type="text" placeholder="Enter book title" id="add-name" name="name" class="flex h-10 w-1/2 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
+                            <input type="text" placeholder="Enter category name" id="add-name" name="name" class="flex h-10 w-1/2 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
                         </div>
                         <div class="my-2">
                             <label for="add-description" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300"> Description </label>
@@ -171,11 +171,10 @@
                         <input type="hidden" id="edit-id" name="id">
                         <div class="my-2">
                             <label for="edit-name" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300"> Name </label>
-                            <input type="text" placeholder="Enter book title" id="edit-name" name="name" class="flex h-10 w-1/2 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
+                            <input type="text" placeholder="Enter category name" id="edit-name" name="name" class="flex h-10 w-1/2 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
                         </div>
                         <div class="my-2">
                             <label for="edit-description" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300"> Description </label>
-                            {{-- <input type="text" id="edit-description" name="description" class="border-4 rounded "> --}}
                             <textarea placeholder="Enter description" id="edit-description" rows="4" name="description"
                             class="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"></textarea>
                         </div>

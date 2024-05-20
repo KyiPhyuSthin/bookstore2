@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="{{ asset('css/normalize.css') }}">
 
     <script src="{{ asset('js/jquery.js') }}"></script>
+    <script src="{{ asset('js/vue.global.js') }}"></script>
 </head>
 
 <body>

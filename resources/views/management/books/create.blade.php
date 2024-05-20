@@ -3,7 +3,7 @@
 @section('page_name', 'Books')
 
 @section('body-content')
-    <div class="container mx-auto px-4">
+    <div class="container mx-auto px-4" id="app">
         <h1 class="text-3xl font-bold mb-6">Add New Book</h1>
         <form id="create-form" class="grid grid-cols-1 md:grid-cols-2 gap-6" enctype="multipart/form-data" action="{{ route("management.books.store") }}" method="POST">
             @csrf
@@ -37,13 +37,21 @@
                     <label for="genres" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
                         Book Genres
                     </label>
-                    <select multiple aria-hidden="true" tabindex="-1" id="genres"
-                    class="flex h-48 w-96 items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                    name="genre_ids[]">
+                    <select aria-hidden="true" tabindex="-1" id="genres" v-model="selectedGenre"
+                    class="flex h-10 w-96 items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm
+                    ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring
+                    focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" @change="genreSelectChanged" >
                         @foreach ($genres as $genre)
-                            <option value="{{$genre->id}}"> {{$genre->name}} </option>
+                            <option value="{{$genre}}"> {{$genre->name}} </option>
                         @endforeach
                     </select>
+                </div>
+
+                <div>
+                    <div class="flex flex-wrap h-36 w-3/4 px-2 items-center gap-2 text-sm border text-gray-500 dark:text-gray-400">
+                        <span class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded-md" v-for="(genre) in selectedGenres" > @{{ genre.name }} </span>
+                        <input type="hidden" name="genre_ids[]" v-if="selectedGenres.length > 0" v-for="(genre) in selectedGenres" :value="genre.id">
+                    </div>
                 </div>
 
                 <div>
@@ -157,5 +165,38 @@
                 });
             });
         });
+
+        const app = Vue.createApp({
+            data() {
+                return {
+                    selectedGenre: null,
+                    selectedGenres: [],
+                };
+            },
+
+            methods: {
+                genreSelectChanged(){
+                    this.selectedGenre = JSON.parse(this.selectedGenre);
+                    if(this.selectedGenres.length < 1){
+                        this.selectedGenres.push(this.selectedGenre);
+                    }
+                    else{
+                        let index = this.selectedGenres.findIndex(genre => genre.id == this.selectedGenre.id);
+                        if(index != -1){
+                            this.selectedGenres.splice(index, 1);
+                        }
+                        else{
+                            this.selectedGenres.push(this.selectedGenre);
+                        }
+                    }
+                }
+            },
+
+            mounted() {
+
+            }
+        });
+
+        app.mount('#app');
     </script>
 @endsection

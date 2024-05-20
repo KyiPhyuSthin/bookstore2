@@ -76,10 +76,19 @@
                         </path>
                     </svg> --}}
                     Orders
-                    <div
-                        class="whitespace-nowrap border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-primary text-primary-foreground hover:bg-primary/80 ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
-                        12
-                    </div>
+                    @php
+                        $orderCount = 0;
+                        $orderCount = App\Models\Order::where("status", "received")->count();
+                    @endphp
+                    @if ($orderCount > 0)
+                        <div class="whitespace-nowrap border px-2.5 py-0.5 text-xs font-semibold transition-colors
+                        focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent
+                        bg-primary text-primary-foreground hover:bg-primary/80 ml-auto flex h-6 w-6 shrink-0 items-center
+                        justify-center rounded-full">
+                            {{ $orderCount }}
+                        </div>
+                    @endif
+
                 </a>
                 <a class="@yield('customers') flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
                     href="#">
