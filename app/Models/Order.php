@@ -18,6 +18,11 @@ class Order extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function userAddress()
+    {
+        return $this->belongsTo(UserAddress::class);
+    }
+
     public function orderItems()
     {
         return $this->hasMany(OrderItem::class);

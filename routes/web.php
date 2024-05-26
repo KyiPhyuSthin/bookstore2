@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\GenresController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\SubCategoryController;
 
 use App\Http\Controllers\WEBSITE\AuthController;
@@ -78,6 +79,17 @@ Route::prefix('management')->name('management.')->group(function () {
         Route::get('/{book}/edit', [BookController::class, 'edit'])->name('edit');
         Route::put('/{book}', [BookController::class, 'update'])->name('update');
         Route::delete('/{book}', [BookController::class, 'destroy'])->name('destroy');
+    });
+});
+
+Route::prefix('management')->name('management.')->group(function () {
+    Route::prefix('orders')->name('orders.')->group(function () {
+        Route::get('/', [OrderController::class, 'index'])->name('index');
+        // Route::get('/create', [BookController::class, 'create'])->name('create');
+        // Route::post('/', [BookController::class, 'store'])->name('store');
+        // Route::get('/{book}/edit', [BookController::class, 'edit'])->name('edit');
+        // Route::put('/{book}', [BookController::class, 'update'])->name('update');
+        // Route::delete('/{book}', [BookController::class, 'destroy'])->name('destroy');
     });
 });
 
