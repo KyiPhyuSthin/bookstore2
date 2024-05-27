@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\GenresController;
@@ -44,52 +45,52 @@ Route::get('/test', function () {
     return view('website.test');
 });
 
-Route::prefix('management')->name('management.')->group(function () {
-    Route::prefix('categories')->name('categories.')->group(function () {
-        Route::get('/', [CategoryController::class, 'index'])->name('index');
-        Route::post('/', [CategoryController::class, 'store'])->name('store');
-        Route::put('/{category}', [CategoryController::class, 'update'])->name('update');
-        Route::delete('/{category}', [CategoryController::class, 'destroy'])->name('destroy');
-    });
-});
+Route::view('/management/sign-in', 'management.auth.login')->name("management.sign_in");
+Route::post('/management/sign_in', [AdminAuthController::class, "login"])->name("management.login");
 
-Route::prefix('management')->name('management.')->group(function () {
-    Route::prefix('sub_categories')->name('sub_categories.')->group(function () {
-        Route::get('/', [SubCategoryController::class, 'index'])->name('index');
-        Route::post('/', [SubCategoryController::class, 'store'])->name('store');
-        Route::put('/{subCategory}', [SubCategoryController::class, 'update'])->name('update');
-        Route::delete('/{subCategory}', [SubCategoryController::class, 'destroy'])->name('destroy');
+Route::middleware('auth:management_web')->group(function(){
+    Route::prefix('management')->name('management.')->group(function () {
+        Route::prefix('categories')->name('categories.')->group(function () {
+            Route::get('/', [CategoryController::class, 'index'])->name('index');
+            Route::post('/', [CategoryController::class, 'store'])->name('store');
+            Route::put('/{category}', [CategoryController::class, 'update'])->name('update');
+            Route::delete('/{category}', [CategoryController::class, 'destroy'])->name('destroy');
+        });
     });
-});
 
-Route::prefix('management')->name('management.')->group(function () {
-    Route::prefix('genres')->name('genres.')->group(function () {
-        Route::get('/', [GenresController::class, 'index'])->name('index');
-        Route::post('/', [GenresController::class, 'store'])->name('store');
-        Route::put('/{genre}', [GenresController::class, 'update'])->name('update');
-        Route::delete('/{genre}', [GenresController::class, 'destroy'])->name('destroy');
+    Route::prefix('management')->name('management.')->group(function () {
+        Route::prefix('sub_categories')->name('sub_categories.')->group(function () {
+            Route::get('/', [SubCategoryController::class, 'index'])->name('index');
+            Route::post('/', [SubCategoryController::class, 'store'])->name('store');
+            Route::put('/{subCategory}', [SubCategoryController::class, 'update'])->name('update');
+            Route::delete('/{subCategory}', [SubCategoryController::class, 'destroy'])->name('destroy');
+        });
     });
-});
 
-Route::prefix('management')->name('management.')->group(function () {
-    Route::prefix('books')->name('books.')->group(function () {
-        Route::get('/', [BookController::class, 'index'])->name('index');
-        Route::get('/create', [BookController::class, 'create'])->name('create');
-        Route::post('/', [BookController::class, 'store'])->name('store');
-        Route::get('/{book}/edit', [BookController::class, 'edit'])->name('edit');
-        Route::put('/{book}', [BookController::class, 'update'])->name('update');
-        Route::delete('/{book}', [BookController::class, 'destroy'])->name('destroy');
+    Route::prefix('management')->name('management.')->group(function () {
+        Route::prefix('genres')->name('genres.')->group(function () {
+            Route::get('/', [GenresController::class, 'index'])->name('index');
+            Route::post('/', [GenresController::class, 'store'])->name('store');
+            Route::put('/{genre}', [GenresController::class, 'update'])->name('update');
+            Route::delete('/{genre}', [GenresController::class, 'destroy'])->name('destroy');
+        });
     });
-});
 
-Route::prefix('management')->name('management.')->group(function () {
-    Route::prefix('orders')->name('orders.')->group(function () {
-        Route::get('/', [OrderController::class, 'index'])->name('index');
-        // Route::get('/create', [BookController::class, 'create'])->name('create');
-        // Route::post('/', [BookController::class, 'store'])->name('store');
-        // Route::get('/{book}/edit', [BookController::class, 'edit'])->name('edit');
-        // Route::put('/{book}', [BookController::class, 'update'])->name('update');
-        // Route::delete('/{book}', [BookController::class, 'destroy'])->name('destroy');
+    Route::prefix('management')->name('management.')->group(function () {
+        Route::prefix('books')->name('books.')->group(function () {
+            Route::get('/', [BookController::class, 'index'])->name('index');
+            Route::get('/create', [BookController::class, 'create'])->name('create');
+            Route::post('/', [BookController::class, 'store'])->name('store');
+            Route::get('/{book}/edit', [BookController::class, 'edit'])->name('edit');
+            Route::put('/{book}', [BookController::class, 'update'])->name('update');
+            Route::delete('/{book}', [BookController::class, 'destroy'])->name('destroy');
+        });
+    });
+
+    Route::prefix('management')->name('management.')->group(function () {
+        Route::prefix('orders')->name('orders.')->group(function () {
+            Route::get('/', [OrderController::class, 'index'])->name('index');
+        });
     });
 });
 
